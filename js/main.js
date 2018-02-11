@@ -189,89 +189,123 @@ function calculationForm() {
 
 	for ( var i = 0; i < result.length; i++) {
 		if (operand.indexOf(result[i]) != -1 ) {
+			var res = operand.indexOf(result[i]);
+			//console.log(operand[res]); //виводить знак з result
+			//var sign1 = operand[res];
+			//alert(sign1);
+
 
 			
-			var str3 = operand.indexOf(result[i]); //причетне до знаку в split
+
+		} else {
+			
+			//var a = result[i];
+			//console.log(a);
+			//var b = result[i];
+			
+			
+			
+		}
+	}
+			//var info = {
+			//	a: a,
+			//	sign1: sign1,
+			//	b: b,
+			//};
+			//var info2 = JSON.stringify(info);
+			//console.log(info2);
+
+
+			//var str3 = operand.indexOf("+");
+			//console.log(str3)
+			var a2 = result.split(operand[0])[0];
+			console.log(a2);
+			var num1_del = result.replace(a2, '');
+			var sign2 = num1_del.charAt(0);
+			console.log(sign2);
+			var numSign1_del = num1_del.replace(sign2, '');
+			var b2 = numSign1_del.split(operand[0])[0];
+			console.log(b2);
+			var num2_del = numSign1_del.replace(b2, '');
+			var sign3 = num2_del.charAt(0);
+			console.log(sign3);
+			var numSign2_del = num2_del.replace(sign3, '');
+			var c = numSign2_del;
+			console.log(c);
 
 
 
-			var a = result.split(operand[str3])[0]; //вивів в змінну а  все те що стоїть ДО знака
-			console.log(a);
-			//console.log(result);
-			var num1_del = result.replace(a, ''); //видалив перший доданок
-			//console.log(num1_del);
-			var sign1 = num1_del.charAt(0); //витягнув перший символ "+"
-			console.log(sign1);
-			var numSign1_del = num1_del.replace(sign1, ''); //видалив символ "+"
-			//console.log(numSign1_del);
-			var b = numSign1_del.split(operand[str3])[0]; //вивів в змінну а  все те що стоїть ПІСЛЯ знака
-			console.log(b);
-			var num2_del = numSign1_del.replace(b, ''); //видалив число ПІСЛЯ знаку
-			//console.log('І заново проганяти: ' + num2_del);
-			if (num2_del.charAt(0) == operand[str3]) { //якщо після перших 2-х доданків є знак "+" тоді далі проводити ті маніпуляції з тими числами
-				//console.log('далі ще є знак');
-				var sign2 = num2_del.charAt(0);
-				console.log(sign2);
-				var numSign2_del = num2_del.replace(sign2, '');
-				//console.log(numSign2_del);
-				if (numSign2_del.indexOf(operand[str3]) != -1) { //якщо в змінній знаходиться знак тоді далі проводити ті маніпуляції з тими числами
-					var c = numSign2_del.split(operand[str3])[0]; //може бути CВАРКА бо є змінна С
-					console.log(c);
-					var num3_del = numSign2_del.replace(c, '');
-					//console.log(num3_del);
-					var sign3 = num3_del.charAt(0);
-					console.log(sign3);
-					var numSign3_del = num3_del.replace(sign3, '');
-					if (numSign3_del.indexOf(operand[str3]) != -1) {
-						//console.log("знак є");
-						//console.log(numSign3_del);
-						var d = numSign3_del.split(operand[str3])[0]; //може бути CВАРКА бо є змінна D
-						console.log(d)
-						var num4_del = numSign3_del.replace(d, '');
-						var sign4 = num4_del.charAt(0);
-						console.log(sign4);
-						var numSign4_del = num4_del.replace(sign4, '');
-						if (numSign4_del.indexOf(operand[str3]) != -1) {
-							//console.log("знак є");
-							var e = numSign4_del.split(operand[str3])[0];
-							console.log(e);
-							var num5_del = numSign4_del.replace(e, '');
-							var sign5 = num5_del.charAt(0);
-							console.log(sign5);
-							var numSign5_del = num5_del.replace(sign5, '');
-							if (numSign5_del.indexOf(operand[str3]) != -1) {
-								//console.log("знак є");
-								var f = numSign5_del.split(operand[str3])[0];
-								console.log(f);
-								var num6_del = numSign5_del.replace(f, '');
-								var sign6 = num6_del.charAt(0);
-								console.log(sign6);
-								var numSign6_del = num6_del.replace(sign6, '');
-								if (numSign6_del.indexOf(operand[str3]) != -1) {
-									//console.log("знак є");
-									var g = numSign6_del.split(operand[str3])[0];
-									console.log(g);
-									var num7_del = numSign6_del.replace(g, '');
-									var sign7 = num7_del.charAt(0);
-									console.log(sign7);
-									var numSign7_del = num7_del.replace(sign7, '');
-									if (numSign7_del.indexOf(operand[str3]) != -1) {
-										//console.log("знак є");
-										var h = numSign7_del.split(operand[str3])[0];
-										console.log(h);
-										var num8_del = numSign7_del.replace(h, '');
-										var sign8 = num8_del.charAt(0);
-										console.log(sign8);
-										var numSign8_del = num8_del.replace(sign8, '');
-										if (numSign8_del.indexOf(operand[str3]) != -1) {
-											//console.log("знак є");
-											var l = numSign8_del.split(operand[str3])[0];
-											console.log(l);
-											var num9_del = numSign8_del.replace(l, '');
-											var sign9 = num9_del.charAt(0);
-											console.log(sign9);
-											var numSign9_del = num9_del.replace(sign9, '');
-											if (numSign9_del.indexOf(operand[str3]) != -1) {
+			//var num = "11+2";
+			//var aa = num.substring(0,5)[operand[res]];
+			//console.log(aa);
+}
+
+			//Спосіб зі split, не виводить всі знаки підрят, виводить тільки любий 1 знак
+			//var str3 = operand.indexOf(result[i]); //причетне до знаку в split
+
+			//var a = result.split(operand[str3])[0]; //вивів в змінну а  все те що стоїть ДО знака
+			//console.log(a);
+			//var num1_del = result.replace(a, ''); //видалив перший доданок
+			//var sign1 = num1_del.charAt(0); //витягнув перший символ "+"
+			//console.log(sign1);
+			//var numSign1_del = num1_del.replace(sign1, ''); //видалив символ "+"
+			//var b = numSign1_del.split(operand[str3])[0]; //вивів в змінну а  все те що стоїть ДО знака
+			//console.log(b);
+			//var num2_del = numSign1_del.replace(b, ''); //видалив число ПІСЛЯ знаку
+			//if (num2_del.charAt(0) == operand[str3]) { //якщо після перших 2-х доданків є знак "+" тоді далі проводити ті маніпуляції з тими числами
+				//var sign2 = num2_del.charAt(0);
+				//console.log(sign2);
+				//var numSign2_del = num2_del.replace(sign2, '');
+				//if (numSign2_del.indexOf(operand[str3]) != -1) { //якщо в змінній знаходиться знак тоді далі проводити ті маніпуляції з тими числами
+					//var c = numSign2_del.split(operand[str3])[0]; //може бути CВАРКА бо є змінна С
+					//console.log(c);
+					//var num3_del = numSign2_del.replace(c, '');
+					//var sign3 = num3_del.charAt(0);
+					//console.log(sign3);
+					//var numSign3_del = num3_del.replace(sign3, '');
+					//if (numSign3_del.indexOf(operand[str3]) != -1) {
+						//var d = numSign3_del.split(operand[str3])[0]; //може бути CВАРКА бо є змінна D
+						//console.log(d)
+						//var num4_del = numSign3_del.replace(d, '');
+						//var sign4 = num4_del.charAt(0);
+						//console.log(sign4);
+						//var numSign4_del = num4_del.replace(sign4, '');
+						//if (numSign4_del.indexOf(operand[str3]) != -1) {
+							//var e = numSign4_del.split(operand[str3])[0];
+							//console.log(e);
+							//var num5_del = numSign4_del.replace(e, '');
+							//var sign5 = num5_del.charAt(0);
+							//console.log(sign5);
+							//var numSign5_del = num5_del.replace(sign5, '');
+							//if (numSign5_del.indexOf(operand[str3]) != -1) {
+								//var f = numSign5_del.split(operand[str3])[0];
+								//console.log(f);
+								//var num6_del = numSign5_del.replace(f, '');
+								//var sign6 = num6_del.charAt(0);
+								//console.log(sign6);
+								//var numSign6_del = num6_del.replace(sign6, '');
+								//if (numSign6_del.indexOf(operand[str3]) != -1) {
+									//var g = numSign6_del.split(operand[str3])[0];
+									//console.log(g);
+									//var num7_del = numSign6_del.replace(g, '');
+									//var sign7 = num7_del.charAt(0);
+									//console.log(sign7);
+									//var numSign7_del = num7_del.replace(sign7, '');
+									//if (numSign7_del.indexOf(operand[str3]) != -1) {
+										//var h = numSign7_del.split(operand[str3])[0];
+										//console.log(h);
+										//var num8_del = numSign7_del.replace(h, '');
+										//var sign8 = num8_del.charAt(0);
+										//console.log(sign8);
+										//var numSign8_del = num8_del.replace(sign8, '');
+										//if (numSign8_del.indexOf(operand[str3]) != -1) {
+											//var l = numSign8_del.split(operand[str3])[0];
+											//console.log(l);
+											//var num9_del = numSign8_del.replace(l, '');
+											//var sign9 = num9_del.charAt(0);
+											//console.log(sign9);
+											//var numSign9_del = num9_del.replace(sign9, '');
+											//if (numSign9_del.indexOf(operand[str3]) != -1) {
 												//console.log("знак є");  ОДНАК ЦЕ ОСТАННЄ ЧИСЛО ТОДІ ПРОДОВЖУВАТИ ЦЕЙ "ЦИКЛ" НЕМАЄ СЕНСУ І ДЕСЯТЕ ЧИСЛО ВСЕРІВНО ПЕРЕЙДЕ ДО ELSE
 												//var m = numSign9_del.split(operand[str3])[0];
 												//console.log(m);
@@ -279,69 +313,58 @@ function calculationForm() {
 												//var sign10 = num10_del.charAt(0);
 												//console.log(sign10);
 												//var numSign10_del = num10_del.replace(sign10, '');
-											} else {
-												//console.log("знаку нема");
-												var m = numSign9_del;
-												console.log(m);
-											}
+											//} else {
+											//	var m = numSign9_del;
+											//	console.log(m);
+											//}
 
-										} else {
-											//console.log("знаку нема");
-											var l = numSign8_del;
-											console.log(l);
-										}
+										//} else {
+										//	var l = numSign8_del;
+										//	console.log(l);
+										//}
 
-									} else {
-										//console.log("знаку нема");
-										var h = numSign7_del;
-										console.log(h);
-									}
+									//} else {
+									//	var h = numSign7_del;
+									//	console.log(h);
+									//}
 
-								} else {
-									//console.log("знаку нема");
-									var g = numSign6_del;
-									console.log(g);
-								}
+								//} else {
+								//	var g = numSign6_del;
+								//	console.log(g);
+								//}
 
-							} else {
-								//console.log("знаку нема");
-								var f = numSign5_del;
-								console.log(f);
-							}
+							//} else {
+							//	var f = numSign5_del;
+							//	console.log(f);
+							//}
 
-						} else {
-							//console.log("знаку нема");
-							var e = numSign4_del;
-							console.log(e);
-						}
+						//} else {
+						//	var e = numSign4_del;
+						//	console.log(e);
+						//}
 
-					} else {
-						//console.log("знаку нема");
-						var d = numSign3_del; //може бути CВАРКА бо є та сама змінна D
-						console.log(d);
-					}
+					//} else {
+					//	var d = numSign3_del; //може бути CВАРКА бо є та сама змінна D
+					//	console.log(d);
+					//}
 
-				} else { //при умові якщо в numSign2_del не знаходиться більше знаків
-					var c = numSign2_del; //може бути CВАРКА бо є та сама змінна С
-					console.log(c);
-				}
+				//} else { //при умові якщо в numSign2_del не знаходиться більше знаків
+				//	var c = numSign2_del; //може бути CВАРКА бо є та сама змінна С
+				//	console.log(c);
+				//}
 
-			} else {
-				console.log("Кінець, більше чисел немає");
-			} 
-			console.log('Всі введені числа: ' + a + sign1 + b + sign2 + c + sign3 + d + sign4 + e + sign5 + f + sign6 + g + sign7 + h + sign8 + l + sign9 + m);
-			break
-
-			//var sign2 = num2_del.charAt(0);
-			//console.log(sign2);
-			//var numSign2_del = num2_del.replace(sign2, '');
-			//console.log(numSign2_del);
+			//} else {
+			//	console.log("Кінець, більше чисел немає");
+			//} 
+			//console.log('Всі введені числа: ' + a + sign1 + b + sign2 + c + sign3 + d + sign4 + e + sign5 + f + sign6 + g + sign7 + h + sign8 + l + sign9 + m);
+			//break
 
 
 
 
 
-			//this
+
+			//Спосіб з substring, не працює
 			//console.log(result.substring(0, i)); //ЧИСЛО -77- захватив перший доданок
 			//var num1 = parseInt(result.substring(0, i)); // обвів її в змінну
 	
@@ -372,15 +395,11 @@ function calculationForm() {
 			//this
 			
 			
-		//} else {
-			//var result2 = result[i];
-			//console.log(result2);
-			//if (result2 == NaN) {}
+		
 
-
-		}
-	}
-}
+		//}
+	//}
+//}
 
 function oneForm() {
 	var one = "1";
