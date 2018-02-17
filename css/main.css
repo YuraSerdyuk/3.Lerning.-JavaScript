@@ -260,7 +260,7 @@ h5 {
 	margin: auto;
 }
 
-#result {
+#inputString {
 	width: 300px;
 	height: 40px;
 	font-family: Century Gothic;
@@ -272,7 +272,7 @@ h5 {
 	margin: auto;
 }
 
-#result {
+#inputString {
 	padding: 5px;
 }
 
