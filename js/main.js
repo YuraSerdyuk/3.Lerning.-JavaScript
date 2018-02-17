@@ -189,24 +189,34 @@ function calculationForm() {
 
 	for ( var i = 0; i < result.length; i++) {
 		if (operand.indexOf(result[i]) != -1 ) {
-			var res = operand.indexOf(result[i]);
-			//console.log(operand[res]); //виводить знак з result
-			//var sign1 = operand[res];
-			//alert(sign1);
 
-
+			var num1 = result.substring(0, i);
+			console.log(num1);
+			var num1_del = result.replace(num1, '');
+			var sign1 = num1_del.charAt(0);
+			console.log(sign1);
+			var sign1_del = num1_del.replace(sign1, '');
+			
+			var result = sign1_del;
+			console.log(result);
+			if (operand.indexOf(sign1_del[i]) != -1 ) {
+				return calculationForm(sign1_del);
+			} else {
+				console.log(sign1_del);
+			}
 			
 
-		} else {
-			
-			//var a = result[i];
-			//console.log(a);
-			//var b = result[i];
-			
-			
-			
-		}
+		} else {}	
+
 	}
+	//function test(res0) {
+	//	var res1 = "1"
+	//	var res0 = res1++;
+	//	console.log(res0);
+	//	
+	//}
+	//test(res0);
+
 			//var info = {
 			//	a: a,
 			//	sign1: sign1,
@@ -216,22 +226,21 @@ function calculationForm() {
 			//console.log(info2);
 
 
-			//var str3 = operand.indexOf("+");
-			//console.log(str3)
-			var a2 = result.split(operand[0])[0];
-			console.log(a2);
-			var num1_del = result.replace(a2, '');
-			var sign2 = num1_del.charAt(0);
-			console.log(sign2);
-			var numSign1_del = num1_del.replace(sign2, '');
-			var b2 = numSign1_del.split(operand[0])[0];
-			console.log(b2);
-			var num2_del = numSign1_del.replace(b2, '');
-			var sign3 = num2_del.charAt(0);
-			console.log(sign3);
-			var numSign2_del = num2_del.replace(sign3, '');
-			var c = numSign2_del;
-			console.log(c);
+			
+			//var a2 = result.split(operand[0])[0];
+			//console.log(a2);
+			//var num1_del = result.replace(a2, '');
+			//var sign2 = num1_del.charAt(0);
+			//console.log(sign2);
+			//var numSign1_del = num1_del.replace(sign2, '');
+			//var b2 = numSign1_del.split(operand[0])[0];
+			//console.log(b2);
+			//var num2_del = numSign1_del.replace(b2, '');
+			//var sign3 = num2_del.charAt(0);
+			//console.log(sign3);
+			//var numSign2_del = num2_del.replace(sign3, '');
+			//var c = numSign2_del;
+			//console.log(c);
 
 
 
@@ -240,6 +249,17 @@ function calculationForm() {
 			//console.log(aa);
 }
 
+
+
+
+			function syma(n) {
+				if (n == 0) {
+					return 1;
+				} else {
+					return n * n;
+				}
+			}
+			alert(syma(5));
 			//Спосіб зі split, не виводить всі знаки підрят, виводить тільки любий 1 знак
 			//var str3 = operand.indexOf(result[i]); //причетне до знаку в split
 
