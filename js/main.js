@@ -184,71 +184,116 @@ function numbersForm() {
 
 
 function calculationForm() {
-	var result = document.getElementById('result').innerHTML;
-	var	operand = ['+', '-', '*', '/'];
-
-	for ( var i = 0; i < result.length; i++) {
-		if (operand.indexOf(result[i]) != -1 ) {
-
-			var num1 = result.substring(0, i);
-			console.log(num1);
-			var num1_del = result.replace(num1, '');
-			var sign1 = num1_del.charAt(0);
-			console.log(sign1);
-			var sign1_del = num1_del.replace(sign1, '');
-			
-			var result = sign1_del;
-			console.log(result);
-			if (operand.indexOf(sign1_del[i]) != -1 ) {
-				return calculationForm(sign1_del);
-			} else {
-				console.log(sign1_del);
+	var inputString = document.getElementById('inputString').innerHTML,
+		operationsArray = [
+			{
+				sign: '+',
+				priority: 2
+			},
+			{
+				sign: '-',
+				priority: 2
+			},
+			{
+				sign: '*',
+				priority: 1
+			},
+			{
+				sign: '/',
+				priority: 1
 			}
-			
-
-		} else {}	
-
-	}
-	//function test(res0) {
-	//	var res1 = "1"
-	//	var res0 = res1++;
-	//	console.log(res0);
-	//	
-	//}
-	//test(res0);
-
-			//var info = {
-			//	a: a,
-			//	sign1: sign1,
-			//	b: b,
-			//};
-			//var info2 = JSON.stringify(info);
-			//console.log(info2);
-
-
-			
-			//var a2 = result.split(operand[0])[0];
-			//console.log(a2);
-			//var num1_del = result.replace(a2, '');
-			//var sign2 = num1_del.charAt(0);
-			//console.log(sign2);
-			//var numSign1_del = num1_del.replace(sign2, '');
-			//var b2 = numSign1_del.split(operand[0])[0];
-			//console.log(b2);
-			//var num2_del = numSign1_del.replace(b2, '');
-			//var sign3 = num2_del.charAt(0);
-			//console.log(sign3);
-			//var numSign2_del = num2_del.replace(sign3, '');
-			//var c = numSign2_del;
-			//console.log(c);
-
-
-
-			//var num = "11+2";
-			//var aa = num.substring(0,5)[operand[res]];
-			//console.log(aa);
+		],
+		dataArray = genarateArrayDataArray(inputString, operationsArray),
+		pairsArray = generatePairsArray(dataArray);
+	console.log('dataArrayResult:', pairsArray);
 }
 
+function generatePairsArray(dataArray) {
+	var pairsArray = [];
+
+	for (var i = 0, length = dataArray.length; i < length; i++) {
+		var object = {};
+
+		object.left = dataArray[i].string;
+
+		object.operation = dataArray[i].operation;
+
+		if (i + 1 < length) {
+			object.rigth = dataArray[i + 1].string;
+		} else {
+			object.rigth = false;
+		}
+
+		pairsArray.push(object);
+	}
+
+	return pairsArray;
+}
+
+function genarateArrayDataArray(inputString, operationsArray, arrayOfObjects) {
+	var inputString = inputString,
+		operationsArray = operationsArray,
+		firstPart,
+		stringWithoutFistPart,
+		operation,
+		arrayOfObjects = arrayOfObjects || [],
+		object = {};
+
+	for (var i = 0, length = inputString.length; i < length; i++) {
+		if (thisCaracterIsOperation(operationsArray, inputString[i])) {
+			firstPart = inputString.substring(0, i);
+			stringWithoutFistPart = inputString.replace(firstPart, '');
+
+			operation = stringWithoutFistPart.charAt(0);
+
+			object.operation = operation;
+			object.string = firstPart;
+
+			arrayOfObjects.push(object);
+			inputString = stringWithoutFistPart.replace(operation, '');
+			break;
+		} else {
+			if (!ifInputStringHasSomeOperationsLeft(inputString, operationsArray)) {
+				object.operation = false;
+				object.string = inputString;
+				arrayOfObjects.push(object);
+				inputString = '';
+
+				break;
+			}
+		}	
+	}
+
+	if (inputString.length > 0) {
+		return genarateArrayDataArray(inputString, operationsArray, arrayOfObjects);
+	} else {
+		return arrayOfObjects;
+	}
+}
+
+function thisCaracterIsOperation(operationsArray, character) {
+	var result = false;
+
+	for (var i = 0, length = operationsArray.length; i < length; i++) {
+		if (operationsArray[i].sign == character) {
+			result = true;
+		}
+	}
+
+	return result;
+}
+
+function ifInputStringHasSomeOperationsLeft(inputString, operationsArray) {
+	var result = false;
+
+	for (var i = 0, length = operationsArray.length; i < length; i++) {
+		if (inputString.indexOf(operationsArray[i].sign) != -1) {
+			result = true;
+		}
+	}
+
+	return result;
+}
 
 
 
@@ -259,7 +304,7 @@ function calculationForm() {
 					return n * n;
 				}
 			}
-			alert(syma(5));
+
 			//Спосіб зі split, не виводить всі знаки підрят, виводить тільки любий 1 знак
 			//var str3 = operand.indexOf(result[i]); //причетне до знаку в split
 
@@ -423,70 +468,70 @@ function calculationForm() {
 
 function oneForm() {
 	var one = "1";
-	document.getElementById("result").innerHTML += one;
+	document.getElementById("inputString").innerHTML += one;
 }
 
 function twoForm() {
 	var two = "2";
-	document.getElementById("result").innerHTML += two;
+	document.getElementById("inputString").innerHTML += two;
 }
 
 function threeForm() {
 	var three = "3";
-	document.getElementById("result").innerHTML += three;
+	document.getElementById("inputString").innerHTML += three;
 }
 
 function fourForm() {
 	var four = "4";
-	document.getElementById("result").innerHTML += four;
+	document.getElementById("inputString").innerHTML += four;
 }
 
 function fiveForm() {
 	var five = "5";
-	document.getElementById("result").innerHTML += five;
+	document.getElementById("inputString").innerHTML += five;
 }
 
 function sixForm() {
 	var six = "6";
-	document.getElementById("result").innerHTML += six;
+	document.getElementById("inputString").innerHTML += six;
 }
 
 function sevenForm() {
 	var seven = "7";
-	document.getElementById("result").innerHTML += seven;
+	document.getElementById("inputString").innerHTML += seven;
 }
 
 function eightForm() {
 	var eight = "8";
-	document.getElementById("result").innerHTML += eight;
+	document.getElementById("inputString").innerHTML += eight;
 }
 
 function nineForm() {
 	var nine = "9";
-	document.getElementById("result").innerHTML += nine;
+	document.getElementById("inputString").innerHTML += nine;
 }
 
 function zeroForm() {
 	var zero = "0";
-	document.getElementById("result").innerHTML += zero;
+	document.getElementById("inputString").innerHTML += zero;
 }
 
 function plusForm() {
 	var plus = "+";
-	document.getElementById("result").innerHTML += plus;
+	document.getElementById("inputString").innerHTML += plus;
 }
 
 function minusForm() {
 	var minus = "-";
-	document.getElementById("result").innerHTML += minus;
+	document.getElementById("inputString").innerHTML += minus;
 }
 
 function mnForm() {
 	var mn = "*";
-	document.getElementById("result").innerHTML += mn;
+	document.getElementById("inputString").innerHTML += mn;
 }
 
 function divForm() {
 	var div = "/";
-	document.getElementById("result").innerHTML += div;
+	document.getElementById("inputString").innerHTML += div;
 }
