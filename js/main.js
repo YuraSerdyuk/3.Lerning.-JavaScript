@@ -188,57 +188,160 @@ function calculationForm() {
 		operationsArray = [
 			{
 				sign: '+',
-				priority: 2
+				priority: 1,
+				fun: sum
 			},
 			{
 				sign: '-',
-				priority: 2
+				priority: 1,
+				fun: substruct
 			},
 			{
 				sign: '*',
-				priority: 1
+				priority: 2,
+				fun: multiply
 			},
 			{
 				sign: '/',
-				priority: 1
+				priority: 2,
+				fun: divide
 			}
 		],
 		dataArray = genarateArrayDataArray(inputString, operationsArray),
-		pairsArray = generatePairsArray(dataArray);
+		pairsArray = generatePairsArray(dataArray),
+		result;
 	console.log('dataArrayResult:', pairsArray);
 
-	for ( var i = 0, length = pairsArray.length; i < length; i++) {
+	defineOperationsData(pairsArray, operationsArray);
+	result = executeHighestPriorityOperation(pairsArray);
+	console.log('final:', result);
+//console.log('after', pairsArray);
+	
+/*
+for ( var i = 0, length = pairsArray.length; i < length; i++) {
 		if (pairsArray[i].operation == "/") {
-			var sum = pairsArray[i].left / pairsArray[i].rigth
+			var sum = pairsArray[i].left / pairsArray[i].right
 			pairsArray[i + 1].left = sum;
-			
+			pairsArray[i - 1].right = sum;
 			delete pairsArray[i];
 			
-			if (pairsArray[i] == pairsArray[0]) {
+		//	if (pairsArray[i] == pairsArray[0]) {
 				
-			}
+			//}
 
-			if (pairsArray[i - 1] == undefined) {
-				if (pairsArray[i - 2] == undefined) {
-					pairsArray[i - 3].rigth = sum;
-				} else {
-					pairsArray[i - 2].rigth = sum;
-				}
-			}
+			//if (pairsArray[i - 1] == undefined) {
+			//	if (pairsArray[i - 2] == undefined) {
+			//		pairsArray[i - 3].right = sum;
+			//	} else {
+					
+			//	}
+			//}
 
 
 		}
 	}
-
 	for ( var i = 0, length = pairsArray.length; i < length; i++) {
 		if (pairsArray[i].operation == "+") {
 			console.log("є +");
 		} else if (pairsArray[i].operation == "-") {
 			console.log("є -");
 		}
+	}*/
+}
+
+function executeHighestPriorityOperation(pairsArray) {
+	var highestPriorityOperationIndex = getIndexOfHighestPriorityOperation(pairsArray),
+		left,
+		right,
+		calculationResult;
+
+	left = pairsArray[highestPriorityOperationIndex].left;
+	right = pairsArray[highestPriorityOperationIndex].right;
+
+	if (pairsArray[highestPriorityOperationIndex].operation) {
+		calculationResult = pairsArray[highestPriorityOperationIndex].fun(left, right);
+		
+		if (highestPriorityOperationIndex == 0) {
+			pairsArray[highestPriorityOperationIndex + 1].left  = calculationResult;
+		} else {
+			pairsArray[highestPriorityOperationIndex - 1].right = calculationResult
+			pairsArray[highestPriorityOperationIndex + 1].left  = calculationResult;
+		}
 	}
 
-	console.log(operationsArray);
+	if (pairsArray[highestPriorityOperationIndex].operation) {
+		pairsArray.splice(highestPriorityOperationIndex, 1);
+		return executeHighestPriorityOperation(pairsArray);
+	} else {
+		return left;
+	}
+}
+
+function getIndexOfHighestPriorityOperation(pairsArray) {
+	var highestPriorityIndex = null;
+
+	for (var i = 0, length = pairsArray.length; i < length; i++) {
+		if (highestPriorityIndex == null) {
+			highestPriorityIndex = i;
+		} else {
+			if (pairsArray[i].priority > pairsArray[highestPriorityIndex].priority) {
+				highestPriorityIndex = i;
+			}
+		}
+	}
+
+	return highestPriorityIndex;
+}
+
+function sum(a, b) {
+	var result = parseFloat(a) + parseFloat(b);
+
+	return result;
+}
+
+function substruct(a, b) {
+	var result = parseFloat(a) - parseFloat(b);
+
+	return result;
+}
+
+function multiply(a, b) {
+	var result = parseFloat(a) * parseFloat(b);
+	
+	return result;
+}
+
+function divide(a, b) {
+	var result = parseFloat(a) / parseFloat(b);
+	
+	return result;
+}
+
+function defineOperationsData(inputObj, operationsArray) {
+	var operationData;
+	for (var i = 0, length = inputObj.length; i < length; i++) {
+		operationData = getOperationData(inputObj[i].operation, operationsArray);
+
+		if (operationData) {
+			inputObj[i].priority = operationData.priority;
+			inputObj[i].fun = operationData.fun;
+		}
+	}
+}
+
+function getOperationData(operation, operationsArray) {
+	var result = false;
+
+	for (var i = 0, length = operationsArray.length; i < length; i++) {
+		if (operationsArray[i].sign == operation) {
+			result = {
+				priority: operationsArray[i].priority,
+				fun: operationsArray[i].fun
+			};
+		}
+	}
+
+	return result;
 }
 
 function generatePairsArray(dataArray) {
@@ -252,9 +355,9 @@ function generatePairsArray(dataArray) {
 		object.operation = dataArray[i].operation;
 
 		if (i + 1 < length) {
-			object.rigth = dataArray[i + 1].string;
+			object.right = dataArray[i + 1].string;
 		} else {
-			object.rigth = false;
+			object.right = false;
 		}
 
 		pairsArray.push(object);
