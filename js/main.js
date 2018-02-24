@@ -206,6 +206,39 @@ function calculationForm() {
 		dataArray = genarateArrayDataArray(inputString, operationsArray),
 		pairsArray = generatePairsArray(dataArray);
 	console.log('dataArrayResult:', pairsArray);
+
+	for ( var i = 0, length = pairsArray.length; i < length; i++) {
+		if (pairsArray[i].operation == "/") {
+			var sum = pairsArray[i].left / pairsArray[i].rigth
+			pairsArray[i + 1].left = sum;
+			
+			delete pairsArray[i];
+			
+			if (pairsArray[i] == pairsArray[0]) {
+				
+			}
+
+			if (pairsArray[i - 1] == undefined) {
+				if (pairsArray[i - 2] == undefined) {
+					pairsArray[i - 3].rigth = sum;
+				} else {
+					pairsArray[i - 2].rigth = sum;
+				}
+			}
+
+
+		}
+	}
+
+	for ( var i = 0, length = pairsArray.length; i < length; i++) {
+		if (pairsArray[i].operation == "+") {
+			console.log("є +");
+		} else if (pairsArray[i].operation == "-") {
+			console.log("є -");
+		}
+	}
+
+	console.log(operationsArray);
 }
 
 function generatePairsArray(dataArray) {
